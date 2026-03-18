@@ -175,17 +175,13 @@ function scaleApp() {
   }
 }
 
-if (window.innerWidth > 768) {
-  window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-      scaleApp();
-    }, 100);
-  });
-}
-if (window.innerWidth > 768) {
-  window.addEventListener("load", scaleApp);
-}
+window.addEventListener("resize", () => {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    scaleApp();
+  }, 100);
+});
+window.addEventListener("load", scaleApp);
 
 window.addEventListener("orientationchange", () => {
   baseWidth = null;

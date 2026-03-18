@@ -931,8 +931,4 @@ body {
 
   transform-origin: top left;
 }
-body::after {
-  content: "";
-  display: block;
-  height: 150px; /* increase scroll space */
-}
+

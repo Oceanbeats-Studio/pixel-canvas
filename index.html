@@ -3,7 +3,6 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Binary Pixel Canvas</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
@@ -50,28 +49,6 @@
         <span class="chevron right"></span>
       </button>
     </div>
-
-
-
-<div class="toolbar-actions">
-
-   <button class="tool-btn tool-btn-large" id="clear">
-     <img src="assets/tools/clear.png" alt="Clear">
-   </button>
-
-   <button class="tool-btn tool-btn-large" id="settingsBtn">
-     <img src="assets/tools/settings.png" alt="Settings">
-   </button>
-
-   <button class="tool-btn tool-btn-large" data-tool="animate">
-     <img src="assets/tools/animate.png" alt="Animate">
-   </button>
-
-   <button class="tool-btn tool-btn-large" data-tool="download">
-     <img src="assets/tools/download.png" alt="Download">
-   </button>
- </div>
-</div>
 
 <div class="tools-strip">
 
@@ -150,6 +127,26 @@
     </button>
   </div>
 
+</div>
+
+<div class="toolbar-actions">
+
+   <button class="tool-btn tool-btn-large" id="clear">
+     <img src="assets/tools/clear.png" alt="Clear">
+   </button>
+
+   <button class="tool-btn tool-btn-large" id="settingsBtn">
+     <img src="assets/tools/settings.png" alt="Settings">
+   </button>
+
+   <button class="tool-btn tool-btn-large" data-tool="animate">
+     <img src="assets/tools/animate.png" alt="Animate">
+   </button>
+
+   <button class="tool-btn tool-btn-large" data-tool="download">
+     <img src="assets/tools/download.png" alt="Download">
+   </button>
+ </div>
 </div>
 
   <div class="main">
@@ -353,34 +350,6 @@
 </script>
 
   </div>
-
-<script>
-window.addEventListener("load", () => {
-
-  // ✅ Apply ONLY on mobile
-  if (window.innerWidth <= 768) {
-
-    setTimeout(() => {
-      window.scrollTo({
-        top: 80,
-        behavior: "smooth"
-      });
-
-      // second push for reliability
-      setTimeout(() => {
-        window.scrollTo({
-          top: 120,
-          behavior: "smooth"
-        });
-      }, 200);
-
-    }, 1000);
-
-  }
-
-});
-</script>
-  
 </body>
 
 </html>

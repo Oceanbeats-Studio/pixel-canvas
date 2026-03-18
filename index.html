@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Binary Pixel Canvas</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+
+<div class="toolbar-wrapper">
+  <div class="toolbar">
+    <div class="toolbar-left logo">PIXEL CANVAS</div>
+
+    <div class="tab-strip">
+
+
+
+      <button class="arrow inside" id="prev">
+        <span class="chevron left"></span>
+      </button>
+
+      <div class="carousel-window">
+        <div class="carousel" id="carousel">
+
+          <!-- CLONES (END) -->
+          <div class="tab">Grid 256</div>
+          <div class="tab">Grid 512</div>
+
+          <!-- REAL -->
+          <div class="tab">Grid 8</div>
+          <div class="tab">Grid 16</div>
+          <div class="tab">Grid 32</div>
+          <div class="tab">Grid 64</div>
+          <div class="tab">Grid 128</div>
+          <div class="tab">Grid 256</div>
+          <div class="tab">Grid 512</div>
+
+          <!-- CLONES (START) -->
+          <div class="tab">Grid 8</div>
+          <div class="tab">Grid 16</div>
+
+        </div>
+      </div>
+
+      <button class="arrow inside" id="next">
+        <span class="chevron right"></span>
+      </button>
+    </div>
+
+<div class="tools-strip">
+
+  <!-- ===== Creation Group ===== -->
+  <div class="tool-group">
+    <button class="tool-btn" data-tool="add">
+      <img src="assets/tools/add.png" alt="Add">
+    </button>
+
+    <button class="tool-btn" data-tool="edit">
+      <img src="assets/tools/edit.png" alt="Edit">
+    </button>
+
+    <button class="tool-btn" data-tool="text">
+      <img src="assets/tools/text.png" alt="Text">
+    </button>
+
+    <button class="tool-btn" data-tool="fill">
+      <img src="assets/tools/fill.png" alt="Fill">
+    </button>
+
+    <button class="tool-btn" data-tool="erase">
+      <img src="assets/tools/erase.png" alt="Erase">
+    </button>
+  </div>
+
+  <!-- ===== History Group ===== -->
+  <div class="tool-group">
+    <button class="tool-btn" data-tool="undo">
+      <img src="assets/tools/undo.png" alt="Undo">
+    </button>
+
+    <button class="tool-btn" data-tool="redo">
+      <img src="assets/tools/redo.png" alt="Redo">
+    </button>
+  </div>
+
+  <!-- ===== Selection Group ===== -->
+  <div class="tool-group">
+    <button class="tool-btn" data-tool="select">
+      <img src="assets/tools/select.png" alt="Select">
+    </button>
+
+    <button class="tool-btn" data-tool="cut">
+      <img src="assets/tools/cut.png" alt="Cut">
+    </button>
+
+    <button class="tool-btn" data-tool="copy">
+      <img src="assets/tools/copy.png" alt="Copy">
+    </button>
+  </div>
+
+  <!-- ===== Transform Group ===== -->
+  <div class="tool-group">
+    <button class="tool-btn" data-tool="scale">
+      <img src="assets/tools/scale.png" alt="Scale">
+    </button>
+
+    <button class="tool-btn" data-tool="rotate">
+      <img src="assets/tools/rotate.png" alt="Rotate">
+    </button>
+
+    <button class="tool-btn" data-tool="mirror">
+      <img src="assets/tools/mirror.png" alt="Mirror">
+    </button>
+  </div>
+
+  <!-- ===== View Group ===== -->
+  <div class="tool-group">
+    <button class="tool-btn" data-tool="zoom-in">
+      <img src="assets/tools/zoom-in.png" alt="Zoom In">
+    </button>
+
+    <button class="tool-btn" data-tool="zoom-out">
+      <img src="assets/tools/zoom-out.png" alt="Zoom Out">
+    </button>
+  </div>
+
+</div>
+
+<div class="toolbar-actions">
+
+   <button class="tool-btn tool-btn-large" id="clear">
+     <img src="assets/tools/clear.png" alt="Clear">
+   </button>
+
+   <button class="tool-btn tool-btn-large" id="settingsBtn">
+     <img src="assets/tools/settings.png" alt="Settings">
+   </button>
+
+   <button class="tool-btn tool-btn-large" data-tool="animate">
+     <img src="assets/tools/animate.png" alt="Animate">
+   </button>
+
+   <button class="tool-btn tool-btn-large" data-tool="download">
+     <img src="assets/tools/download.png" alt="Download">
+   </button>
+ </div>
+</div>
+
+  <div class="main">
+    <div class="canvas-frame">
+      <div class="canvas-scroll">
+        <canvas id="canvas"></canvas>
+      </div>
+    </div>
+
+    
+    <div id="gallery" class="gallery">
+
+      <h3>Pixel Gallery</h3>
+      <canvas id="gallery-preview"></canvas>
+      <div id="gallery-name" class="gallery-name"></div>
+      <div class="gallery-controls">
+        <button id="prevImg">◀</button>
+        <button id="nextImg">▶</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="canvas-bottom-info">
+    <div class="canvas-info-panel">
+    Grid: <span id="gridSizeLabel">8×8</span>
+    &nbsp; | &nbsp;
+    Cursor Position: <span id="cursorPos">1,1</span>
+    &nbsp; | &nbsp;
+    Cursor Speed (S): <span id="cursorSpeedLabel">30</span>
+  </div>
+  <!-- =====================================================
+       SETTINGS MODAL (ADDED — DOES NOT AFFECT EXISTING LOGIC)
+       ===================================================== -->
+  <div id="settingsModal" class="modal hidden">
+    <div class="modal-content">
+      <h2>Settings</h2>
+
+      <h3>Instructions</h3>
+      <p>
+        ↑ ↓ ← → Move<br>
+        Hold 1 = Black<br>
+        Hold 0 = White<br>
+        Key C  = Clear<br>
+        Key B  = Black Canvas<br>
+        Key W  = White Canvas<br>
+      </p>
+
+      <h3>Button Assignment</h3>
+      <ul>
+        <li>1 → Paint Black</li>
+        <li>0 → Paint White</li>
+        <li>C → Clear Canvas</li>
+        <li>B → Black Canvas</li>
+        <li>W → White Canvas</li>
+      </ul>
+
+      <h3>Music</h3>
+      <label>
+        <input type="checkbox" disabled>
+        Background music
+      </label>
+
+      <button id="resetAll">Rest All</button>
+      <button id="closeSettings">Close</button>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       ORIGINAL SCRIPTS (UNCHANGED ORDER)
+       ===================================================== -->
+  <script src="js/colorPicker.js"></script>
+  <script src="js/pixelExpandHelper.js"></script>
+  <script src="js/pixelReduceHelper.js"></script>
+  <script src="js/canvas.js"></script>
+  <script src="js/keyboardColorControl.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/difficulty.js"></script>
+  <script src="js/app.js"></script>
+
+<script>
+  const carousel = document.getElementById("carousel");
+  const tabs = [...carousel.children];
+  const tabWidth = tabs[0].offsetWidth;
+  const visibleOffset = 2;
+
+  let index = visibleOffset;
+  let isAnimating = false;
+
+  function setPosition(animate = true) {
+    carousel.style.transition = animate
+      ? "transform 0.55s cubic-bezier(.4,0,.2,1)"
+      : "none";
+
+    carousel.style.transform = `translateX(${-index * tabWidth}px)`;
+
+    tabs.forEach(t => t.classList.remove("active", "side"));
+
+    tabs[index].classList.add("active");
+    tabs[index - 1]?.classList.add("side");
+    tabs[index + 1]?.classList.add("side");
+  }
+
+  function next() {
+    if (isAnimating) return;
+    isAnimating = true;
+    index++;
+    setPosition(true);
+  }
+
+  function prev() {
+    if (isAnimating) return;
+    isAnimating = true;
+    index--;
+    setPosition(true);
+  }
+
+  carousel.addEventListener("transitionend", () => {
+    const realCount = 7;
+
+    if (index >= realCount + visibleOffset) {
+      index = visibleOffset;
+      setPosition(false);
+    }
+
+    if (index < visibleOffset) {
+      index = realCount + visibleOffset - 1;
+      setPosition(false);
+    }
+
+    isAnimating = false;
+  });
+
+  document.getElementById("next").onclick = next;
+  document.getElementById("prev").onclick = prev;
+
+  setPosition(false);
+</script>
+
+<script>
+  /* ======================================================
+     LINK CAROUSEL → DIFFICULTY / GRID LOGIC
+     ====================================================== */
+
+  function applyDifficultyFromCarousel() {
+  const activeTab = document.querySelector(".tab.active");
+  if (!activeTab) return;
+
+  const text = activeTab.textContent.trim();
+  const level = parseInt(text.match(/\d+/)[0]);
+
+  console.log("[Carousel → Grid]", level);
+
+  if (typeof initCanvas === "function") {
+    initCanvas(level);
+  }
+
+  if (typeof updateGalleryForSize === "function") {
+    updateGalleryForSize(level);
+  }
+}
+
+  /* ======================================================
+     HOOK INTO CAROUSEL ANIMATION
+     ====================================================== */
+
+  const originalSetPosition = setPosition;
+
+  setPosition = function (animate = true) {
+    originalSetPosition(animate);
+
+    // wait until transform settles
+    requestAnimationFrame(() => {
+      requestAnimationFrame(applyDifficultyFromCarousel);
+    });
+  };
+
+  // initial sync on page load
+  window.addEventListener("load", applyDifficultyFromCarousel);
+</script>
+
+<script>
+  /* ======================================================
+     CAROUSEL → GRID SYNC
+     ====================================================== */
+
+ 
+
+  /* Hook into carousel movement */
+  const __setPosition = setPosition;
+  setPosition = function (animate = true) {
+    __setPosition(animate);
+
+    requestAnimationFrame(() => {
+      requestAnimationFrame(syncGridWithCarousel);
+    });
+  };
+
+  /* Initial sync on load */
+  window.addEventListener("load", syncGridWithCarousel);
+</script>
+
+
+</body>
+
+</html>

@@ -40,7 +40,7 @@
   align-items: center;
 
   height: 52px;
-  max-width: 100%;;
+  max-width: 1400px;
   margin: 10px auto;
   padding: 0 12px;
 
@@ -227,30 +227,22 @@ body {
   color: #111;
   font-family: Arial, sans-serif;
   text-align: center;
-
-  position: relative; /* 🔥 REQUIRED */
 }
 
 /* ===== MAIN LAYOUT (LEFT SHIFTED) ===== */
 .main {
   display: grid;
-
-  grid-template-columns: 1fr 260px;
+  grid-template-columns: auto 210px; /* canvas | editor */
+  gap: 1px;
   align-items: start;
 
-  max-width: 100%;
-  width: 100%;
-
+  max-width: 1200px;
   margin: 20px auto 0 auto;
-  gap: 20px;
-  overflow: hidden;
+  padding: 0 20px;
 }
-
 
 /* ===== CANVAS ===== */
 #canvas {
-
-  
   background: transparent;     /* 🔥 transparent */
   image-rendering: pixelated;
   display: block;
@@ -260,8 +252,7 @@ body {
 
 /* ===== PIXEL GALLERY ===== */
 .gallery {
-  width: 260px;
-  flex-shrink: 0;
+  width: 250px;
   height: 244px;   /* controls bottom space */
   padding: 10px 10px;
   align-self: start;
@@ -611,7 +602,6 @@ body {
 
 .cp-body {
   display: flex;
-  justify-content: center;
   gap: 10px;
 }
 
@@ -645,30 +635,19 @@ body {
 
 /* OUTER BORDER (grid frame) */
 .canvas-frame {
-  margin-left: 10px;
+  margin-left: -70px;
   margin-right: 20px;
   margin-top: 0;
-  margin-bottom: -1px;/* ✅ prevents overflow */
+  margin-bottom: 10px;
 
-  width: 100%;              /* 🔥 fill available space */
-  height: 80vh;
-  min-height: 400px;
-  max-width: none;        /* keep design limit */
+  width: 1032px;
+  height: 552px;
 
-  position: relative;   /* ✅ ADD THIS LINE */
-  overflow: hidden; /* scrollbar stays outside */
-  background: transparent;
-}
-
-.canvas-frame::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-
-  border: 0.5px solid #000;
+  border: 1px solid #000;
   border-radius: 4px;
 
-  pointer-events: none;
+  overflow: hidden; /* scrollbar stays outside */
+  background: transparent;
 }
 
 /* INNER SCROLL AREA */
@@ -846,26 +825,21 @@ body {
 .canvas-area{
   display:flex;
   flex-direction:column;
-  align-items:flex-start;   /* 🔥 FIX */
+  align-items:center;
 }
 
-.canvas-bottom-info {
-  width: 100%;
-  max-width: 1032px;
-  margin-top: 6px;
-
-  display: flex;
-  justify-content: flex-start;   /* 🔥 match left */
-
-  margin-left: 0;                /* 🔥 SAME as canvas-frame */
+.canvas-bottom-info{
+  width:1032px;        /* same width as canvas frame */
+  margin-left:-70px;   /* align with canvas */
+  margin-top:10px;
 }
 
-.canvas-info-panel {
-  position: relative;
+.canvas-info-panel{
 
-  margin: 1px 0 0 0;
+  position: absolute;   /* enables manual positioning */
 
-  margin-left: 14px;   /* 🔥 MATCH INNER GRID GAP */
+  left: 18px;          /* move horizontally */
+  top: 615px;           /* move vertically */
 
   width:520px;
   height:22px;
@@ -879,56 +853,3 @@ body {
 
   font-size:14px;
 }
-
-/* =========================
-   📱 TABLET MODE
-   ========================= */
-@media (max-width: 600px) {
-
-  .main {
-    grid-template-columns: 1fr;   /* stack layout */
-  }
-
-  .canvas-frame {
-    margin-left: 0;   /* prevent break */
-    width: 100%;
-  }
-
-  .gallery {
-    margin: 10px auto;
-  }
-
-  .canvas-bottom-info {
-    margin-left: 0;
-    width: 100%;
-  }
-
-}
-
-/* =========================
-   🖥️ DESKTOP MODE
-   ========================= */
-@media (min-width: 1400px) {
-
-  .main {
-    max-width: 100%;
-  }
-
-  #gallery-preview {
-    width: 220px;
-    height: 220px;
-  }
-
-}
-
-#app {
-  width: 100%;
-  height: 100%;
-
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  transform-origin: top left;
-}
-

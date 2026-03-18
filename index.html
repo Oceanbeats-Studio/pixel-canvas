@@ -356,9 +356,28 @@
 
 <script>
 window.addEventListener("load", () => {
-  setTimeout(() => {
-    window.scrollTo(0, 1);
-  }, 100);
+
+  // ✅ Apply ONLY on mobile
+  if (window.innerWidth <= 768) {
+
+    setTimeout(() => {
+      window.scrollTo({
+        top: 80,
+        behavior: "smooth"
+      });
+
+      // second push for reliability
+      setTimeout(() => {
+        window.scrollTo({
+          top: 120,
+          behavior: "smooth"
+        });
+      }, 200);
+
+    }, 1000);
+
+  }
+
 });
 </script>
   
